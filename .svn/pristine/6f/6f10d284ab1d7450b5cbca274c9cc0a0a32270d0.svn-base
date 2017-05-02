@@ -1,0 +1,30 @@
+package com.aa.poc.nno.web.rest;
+
+import com.aa.poc.nno.service.dto.GreetingsDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * This class contains REST controllers for the Greetings.
+ *
+ * Created by 847697 on 2/23/2017.
+ */
+
+@RestController
+@RequestMapping("/api")
+public class GreetingResource {
+    private final Logger log = LoggerFactory.getLogger(GreetingResource.class);
+
+    @GetMapping("/greetings")
+    public GreetingsDto getGreeting() {
+        log.debug("REST request for greetings message");
+
+        GreetingsDto greeting = new GreetingsDto();
+        greeting.setGreetingMessage("Hello World");
+
+        return greeting;
+    }
+}

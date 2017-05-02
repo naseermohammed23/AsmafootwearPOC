@@ -1,0 +1,43 @@
+package com.aa.poc.nno.service;
+
+import com.aa.poc.nno.service.dto.OpenDiscrepancyDto;
+
+import java.util.List;
+
+/**
+ * Created by 847697 on 3/5/2017.
+ */
+public interface OpenDiscrepancyService {
+
+    /**
+     * Save an Open Discrepency.
+     *
+     * @param openDiscrepancyDto
+     * @return the persisted entity
+     */
+    OpenDiscrepancyDto save(OpenDiscrepancyDto openDiscrepancyDto);
+
+
+    List<OpenDiscrepancyDto> save(List<OpenDiscrepancyDto> openDiscrepancyDto);
+
+    /**
+     * Get all the open discrepancies.
+     * @return
+     */
+    List<OpenDiscrepancyDto> findAll();
+
+    /**
+     * Get the Open Discrepancy based on {@code id}
+     *
+     * @param id the id of the open discrepancy
+     * @return open discrepancy if found {@code null} otherwise
+     */
+    OpenDiscrepancyDto findOne(Long id);
+
+    /**
+     * Delete an existing Open Discrepancy
+     *
+     * @param id
+     */
+    void delete(Long id);
+}

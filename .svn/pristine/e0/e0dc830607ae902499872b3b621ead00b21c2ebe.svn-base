@@ -1,0 +1,10 @@
+package com.aa.poc.nno.repository;
+
+import com.aa.poc.nno.entity.OpenDiscrepancy;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+/**
+ * Created by Neelabh Tripathi(847697) on 3/5/2017.
+ */
+public interface OpenDiscrepancyRepository extends JpaRepository<OpenDiscrepancy, Long> {
+}

@@ -1,0 +1,97 @@
+package com.aa.poc.nno.service.impl;
+
+import com.aa.poc.nno.entity.OpenDiscrepancy;
+import com.aa.poc.nno.repository.OpenDiscrepancyRepository;
+import com.aa.poc.nno.service.OpenDiscrepancyService;
+import com.aa.poc.nno.service.dto.OpenDiscrepancyDto;
+import com.aa.poc.nno.service.mapper.OpenDiscrepancyMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Created by 847697 on 3/5/2017.
+ */
+@Service
+@Transactional
+public class OpenDiscrepancyServiceImpl implements OpenDiscrepancyService {
+
+    private static final Logger log = LoggerFactory.getLogger(OpenDiscrepancyServiceImpl.class);
+
+    private OpenDiscrepancyRepository openDiscrepancyRepository;
+
+    private OpenDiscrepancyMapper openDiscrepancyMapper;
+
+    @Autowired
+    public OpenDiscrepancyServiceImpl(OpenDiscrepancyRepository openDiscrepancyRepository, OpenDiscrepancyMapper
+            openDiscrepancyMapper) {
+        this.openDiscrepancyRepository = openDiscrepancyRepository;
+        this.openDiscrepancyMapper = openDiscrepancyMapper;
+    }
+
+    @Override
+    public OpenDiscrepancyDto save(OpenDiscrepancyDto openDiscrepancyDto) {
+        log.debug("Request to save open discrepancy {} ", openDiscrepancyDto);
+
+        OpenDiscrepancy openDiscrepancy = openDiscrepancyMapper.openDiscrepancyDtoToOpenDiscrepancy(openDiscrepancyDto);
+        openDiscrepancy = openDiscrepancyRepository.save(openDiscrepancy);
+        OpenDiscrepancyDto result = openDiscrepancyMapper.openDiscrepancyToDto(openDiscrepancy);
+
+        return result;
+    }
+
+    @Override
+    public List<OpenDiscrepancyDto> save(List<OpenDiscrepancyDto> openDiscrepancyDto) {
+        log.debug("Request to save open discrepancy {} ", openDiscrepancyDto);
+
+        List<OpenDiscrepancy> openDiscrepancies = openDiscrepancyMapper.openDiscrepancyDtosToOpenDiscrepancies(openDiscrepancyDto);
+        openDiscrepancies = openDiscrepancyRepository.save(openDiscrepancies);
+        List<OpenDiscrepancyDto> result = openDiscrepancyMapper.openDiscrepanciesToDto(openDiscrepancies);
+
+        return result;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<OpenDiscrepancyDto> findAll() {
+        log.debug("Request to get all the OpenDiscrepancies");
+
+        List<OpenDiscrepancyDto> result = openDiscrepancyRepository.findAll().stream()
+                .map(openDiscrepancyMapper::openDiscrepancyToDto)
+                .collect(Collectors.toCollection(LinkedList::new));
+
+        return result;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public OpenDiscrepancyDto findOne(Long id) {
+        log.debug("Request to get OpenDiscrepancy : {}", id);
+
+        OpenDiscrepancy openDiscrepancy = openDiscrepancyRepository.findOne(id);
+        OpenDiscrepancyDto openDiscrepancyDto = openDiscrepancyMapper.openDiscrepancyToDto(openDiscrepancy);
+
+        return openDiscrepancyDto;
+    }
+
+    @Override
+    public void delete(Long id) {
+        log.debug("Request to delete the OpenDiscrepancy {}", id);
+
+        openDiscrepancyRepository.delete(id);
+    }
+
+    public void setOpenDiscrepancyRepository(OpenDiscrepancyRepository openDiscrepancyRepository) {
+        this.openDiscrepancyRepository = openDiscrepancyRepository;
+    }
+
+    public void setOpenDiscrepancyMapper(OpenDiscrepancyMapper openDiscrepancyMapper) {
+        this.openDiscrepancyMapper = openDiscrepancyMapper;
+    }
+}

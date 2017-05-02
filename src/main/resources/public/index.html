@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Accordion - Default functionality</title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#accordion" ).accordion();
+  } );
+  $(document).ready(function() {   // wait for document to fully load
+	  var customerList = "";
+      $("#btn").click(function(event){ // capture a click on the button
+         $.get(  // define a post method
+            "http://localhost:8080/afw/customer",   // the url where info is going to be posted
+            function(data) {  // callback function
+				 customerList = JSON.stringify(data);
+		         alert(customerList);
+            }
+         );
+      });
+   });
+  </script>
+</head>
+<body>
+ 
+<div id="accordion">
+  <h3>New Customer</h3>
+  <div>
+    <table>
+    <tr><td>Customer Name: </td><td><input type="text" /></td></tr>
+    <tr><td>Phone Number: </td><td><input type="text" /></td></tr>
+    <tr><td>Address: </td><td><input type="text" /></td></tr>
+    <tr><td>Amount: </td><td><input type="text" /></td></tr>
+    <tr><td colspan=2><input type="submit" value="Add"/></td></tr>
+    </table>
+  </div>
+  <h3>Customer Details</h3>
+  <div>
+  
+  <select style="width:200px">
+  <option value="volvo">Volvo</option>
+  </select>
+  <button id = "btn">Load Data</button>
+  <br/>
+  <br/>
+  <br/>
+  <table>
+  <tr><td>Customer Name:</td><td><input type="text" disabled/></td></tr>
+  <tr><td>Phone Number:</td><td><input type="text" disabled/></td></tr>
+  <tr><td>Address:</td><td><input type="text" disabled/></td></tr>
+  <tr><td>Balance:</td><td><input type="text" disabled/></td></tr>
+  <tr><td>Amount:</td><td><input type="text" /></td></tr>
+  <tr><td><input type="submit" value="Add"/>  <input type="submit" value="Sub"/></td></tr>
+  </table>
+  </div>
+  <h3>New Party</h3>
+  <div>
+    <table>
+    <tr><td>Party Name: </td><td><input type="text" /></td></tr>
+    <tr><td>Phone Number: </td><td><input type="text" /></td></tr>
+    <tr><td>Address: </td><td><input type="text" /></td></tr>
+    <tr><td>Amount: </td><td><input type="text" /></td></tr>
+    <tr><td colspan=2><input type="submit" value="Add"/></td></tr>
+    </table>
+  </div>
+  <h3>Party Details</h3>
+  <div>
+    <select style="width:200px">
+  <option value="volvo">Volvo</option>
+  </select>
+  <br/>
+  <br/>
+  <br/>
+  <table>
+  <tr><td>Customer Name:</td><td><input type="text" disabled/></td></tr>
+  <tr><td>Phone Number:</td><td><input type="text" disabled/></td></tr>
+  <tr><td>Address:</td><td><input type="text" disabled/></td></tr>
+  <tr><td>Balance:</td><td><input type="text" disabled/></td></tr>
+  <tr><td>Amount:</td><td><input type="text" /></td></tr>
+  <tr><td><input type="submit" value="Add"/>  <input type="submit" value="Sub"/></td></tr>
+  </table>  
+  </div>
+  <h3>Daily Sales Summary</h3>
+  <div>
+    
+  </div>
+</div>
+ 
+ 
+</body>
+</html>

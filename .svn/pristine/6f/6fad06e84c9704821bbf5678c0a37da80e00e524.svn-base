@@ -1,0 +1,49 @@
+package com.aa.poc.nno.service.mapper;
+
+import com.aa.poc.nno.entity.OpenDiscrepancy;
+import com.aa.poc.nno.service.dto.OpenDiscrepancyDto;
+import org.mapstruct.Mapper;
+
+import java.util.List;
+
+/**
+ * This mapper interface comprises of methods for converting OpenDiscrepancy Entity to DTO and vice-versa.
+ * It uses the Mapstruct framework.
+ *
+ * Created by Neelabh Tripathi(847697) on 3/5/2017.
+ */
+@Mapper(componentModel = "spring", uses = {})
+public interface OpenDiscrepancyMapper {
+
+    /**
+     * Mapping method to map OpenDiscrepancy entity object to corresponding DTO.
+     *
+     * @param openDiscrepancy the object to be mapped to DTO
+     * @return the DTO object
+     */
+    OpenDiscrepancyDto openDiscrepancyToDto(OpenDiscrepancy openDiscrepancy);
+
+    /**
+     * Map {@code List} of OpenDiscrepancy entity objects to corresponding DTO {@code List}.
+     *
+     * @param openDiscrepancies the object to be mapped to DTO
+     * @return the DTO object
+     */
+    List<OpenDiscrepancyDto> openDiscrepanciesToDto(List<OpenDiscrepancy> openDiscrepancies);
+
+    /**
+     * Map OpenDiscrepancyDto object to corresponding Entity class.
+     *
+     * @param openDiscrepancyDto the object to be mapped to DTO
+     * @return the DTO object
+     */
+    OpenDiscrepancy openDiscrepancyDtoToOpenDiscrepancy(OpenDiscrepancyDto openDiscrepancyDto);
+
+    /**
+     * Map {@code List} of OpenDiscrepancy DTO objects to corresponding Entity {@code List}.
+     *
+     * @param openDiscrepancyDtos the {@code List} of DTO objects to be mapped to Entity {@code List}
+     * @return the DTO object
+     */
+    List<OpenDiscrepancy> openDiscrepancyDtosToOpenDiscrepancies(List<OpenDiscrepancyDto> openDiscrepancyDtos);
+}

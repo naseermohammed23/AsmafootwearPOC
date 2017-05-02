@@ -1,0 +1,14 @@
+package com.aa.poc.nno.web.rest;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * REST controller for getting Aicraft Maintenance data. This will include aircraft, its associated maintenance and
+ * part numbers.
+ * Created by 847697 on 2/23/2017.
+ */
+@RestController
+@RequestMapping("/api")
+public class AircraftMaintenanceResource {
+}

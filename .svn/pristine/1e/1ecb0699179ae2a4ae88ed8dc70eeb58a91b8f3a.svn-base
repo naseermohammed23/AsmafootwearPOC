@@ -1,0 +1,121 @@
+package com.aa.poc.nno.web.rest;
+
+import com.aa.poc.nno.service.OpenDiscrepancyService;
+import com.aa.poc.nno.service.dto.OpenDiscrepancyDto;
+import com.aa.poc.nno.web.util.HeaderUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+
+/**
+ * This class contains the REST resources for OpenDiscrepancy.
+ * <p>
+ * Created by 847697 on 3/5/2017.
+ */
+@RestController
+@RequestMapping("/api")
+public class OpenDiscrepanciesResource {
+
+    private static final Logger log = LoggerFactory.getLogger(OpenDiscrepanciesResource.class);
+
+    private OpenDiscrepancyService openDiscrepancyService;
+
+    @Autowired
+    public OpenDiscrepanciesResource(OpenDiscrepancyService openDiscrepancyService) {
+        this.openDiscrepancyService = openDiscrepancyService;
+    }
+
+    /**
+     * POST /openDiscrepancy : Creates a new OpenDiscrepancy
+     *
+     * @param openDiscrepancyDto the OpenDiscrepancyDto to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new OpenDiscrepancyDto, or with status
+     * 400 (Bad Request) if the OpenDiscrepancy has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @CrossOrigin
+    @PostMapping("/openDiscrepancy")
+    public ResponseEntity<OpenDiscrepancyDto> createOpenDiscrepancy(@RequestBody OpenDiscrepancyDto
+        openDiscrepancyDto) throws URISyntaxException {
+        log.debug("REST request to save OpenDiscrepancy : {}", openDiscrepancyDto);
+
+        ResponseEntity<OpenDiscrepancyDto> response = null;
+
+        if (openDiscrepancyDto.getId() != null) {
+            response = ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert
+                ("OpenDiscrepancy", "idexists", "A new OpenDiscrepancy cannot have an id.")).body(null);
+        } else {
+            OpenDiscrepancyDto result = openDiscrepancyService.save(openDiscrepancyDto);
+
+            response = ResponseEntity.created(new URI("/api/openDiscrepancy/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert("openDiscrepancy", result.getId().toString()))
+                .body(result);
+        }
+
+        return response;
+    }
+
+    /**
+     * POST /openDiscrepancy/all : Create multiple OpenDiscrepancies
+     *
+     * @param openDiscrepancyDtos {@code List} of OpenDiscrepancies to be created
+     * @return
+     * @throws URISyntaxException
+     */
+    @CrossOrigin
+    @PostMapping("/openDiscrepancy/all")
+    public List<OpenDiscrepancyDto> createOpenDiscrepancy(@RequestBody List<OpenDiscrepancyDto>
+        openDiscrepancyDtos) throws URISyntaxException {
+        log.debug("REST request to save OpenDiscrepancy : {}", openDiscrepancyDtos);
+
+        List<OpenDiscrepancyDto> result = openDiscrepancyService.save(openDiscrepancyDtos);
+
+        return result;
+    }
+
+    /**
+     * PUT /openDiscrepancy : Update an existing OpenDiscrepancy. An id must be associated with the entity.
+     *
+     * @param openDiscrepancyDto the OpenDiscrepancy that needs to be updated
+     * @return updated OpenDiscrepancy
+     * @throws URISyntaxException if URI is not valid
+     */
+    @PutMapping("/openDiscrepancy")
+    public ResponseEntity<OpenDiscrepancyDto> updateOpenDiscrepancy(@RequestBody OpenDiscrepancyDto
+            openDiscrepancyDto) throws URISyntaxException {
+        log.debug("REST request to update OpenDiscrepancy : {}", openDiscrepancyDto);
+
+        ResponseEntity<OpenDiscrepancyDto> response = null;
+
+        if (openDiscrepancyDto.getId() == null) {
+            response = ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert
+                ("OpenDiscrepancy", "noId", "A existing OpenDiscrepancy should have an id.")).body(null);
+        } else {
+            OpenDiscrepancyDto result = openDiscrepancyService.save(openDiscrepancyDto);
+
+            response = ResponseEntity.created(new URI("/api/openDiscrepancy/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert("openDiscrepancy", result.getId().toString()))
+                .body(result);
+        }
+
+        return response;
+    }
+
+    /**
+     * GET /openDiscrepancy : Get all the OpenDiscrepancies
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of OpenDiscrepancies in body
+     */
+    @CrossOrigin
+    @GetMapping("/openDiscrepancy")
+    public List<OpenDiscrepancyDto> getAllOpenDiscrepancies() {
+        log.debug("Request to fetch all open discrepancies");
+        return openDiscrepancyService.findAll();
+    }
+}

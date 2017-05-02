@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery HTTP Post/Get Example</title>
+</head>
+<style type="text/css">
+   body {
+      font-family: "Arial Nova", "Arial", "sans-serif";
+   }
+</style>
+<body>
+<!-- HTML SECTION  -->
+
+
+<button id = "btn">Load Data</button>
+
+<!-- JAVASCRIPT SECTION  -->
+<script src="jquery-1.11.3.min.js"></script>
+<script type = "text/javascript">
+         $(document).ready(function() {   // wait for document to fully load
+            $("#btn").click(function(event){ // capture a click on the button
+               $.get(  // define a post method
+                  "http://localhost:8080/afw/customer",   // the url where info is going to be posted
+                  function(data) {  // callback function
+					 alert(JSON.stringify(data));
+                  }
+               );
+            });
+         });
+</script>
+</body>
+</html>
+
+
