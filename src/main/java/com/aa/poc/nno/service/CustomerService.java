@@ -2,6 +2,7 @@ package com.aa.poc.nno.service;
 
 import java.util.List;
 
+import com.aa.poc.nno.entity.Customer;
 import com.aa.poc.nno.service.dto.CustomerDto;
 
 public interface CustomerService {
@@ -17,4 +18,7 @@ public interface CustomerService {
      * @return open discrepancy if found {@code null} otherwise
      */
 	CustomerDto find(Long id);
+	
+	Customer findCustomer(Long id);
+	
 }

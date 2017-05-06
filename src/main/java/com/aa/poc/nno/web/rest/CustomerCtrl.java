@@ -27,7 +27,7 @@ import com.aa.poc.nno.web.util.HeaderUtil;
  * Created by Neelabh Tripathi on 2/23/2017.
  */
 @RestController
-@RequestMapping("/afw")
+@RequestMapping("/afwCustomer")
 public class CustomerCtrl {
 	
 	 private static final Logger log = LoggerFactory.getLogger(CustomerCtrl.class);
@@ -53,7 +53,7 @@ public class CustomerCtrl {
 	        } else {
 	        	CustomerDto result = customerService.save(customerDto);
 
-	            response = ResponseEntity.created(new URI("/afw/customer/" + result.getId()))
+	            response = ResponseEntity.created(new URI("/afwCustomer/customer/" + result.getId()))
 	                .headers(HeaderUtil.createEntityCreationAlert("customer", result.getId().toString()))
 	                .body(result);
 	        }

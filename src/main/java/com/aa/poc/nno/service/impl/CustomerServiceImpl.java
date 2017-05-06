@@ -17,7 +17,6 @@ import com.aa.poc.nno.entity.Customer;
 import com.aa.poc.nno.repository.CustomerRepository;
 import com.aa.poc.nno.service.CustomerService;
 import com.aa.poc.nno.service.dto.CustomerDto;
-import com.aa.poc.nno.service.dto.OpenDiscrepancyDto;
 import com.aa.poc.nno.service.mapper.CustomerMapper;
 
 /**
@@ -70,11 +69,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public CustomerDto find(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Customer c = customerRepository.findOne(id);
+		
+		return customerMapper.converEntityToDto(c);
 	}
-
-
+	
 	public void setCustomerRepository(CustomerRepository customerRepository) {
 		this.customerRepository = customerRepository;
 	}
@@ -84,5 +83,14 @@ public class CustomerServiceImpl implements CustomerService {
 		this.customerMapper = customerMapper;
 	}
 
+
+	@Override
+	public Customer findCustomer(Long id) {
+		
+		return customerRepository.findOne(id);
+	}
+
+
+	
 	
 }
