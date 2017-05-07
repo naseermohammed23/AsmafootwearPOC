@@ -71,7 +71,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.16.16</version>
+			<version>1.16.14</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
@@ -85,11 +85,16 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version><!--$NO-MVN-MAN-VER$-->
+				<version>3.6.1</version><!--$NO-MVN-MAN-VER$-->
 				<configuration>
 					<source>1.8</source> <!-- or higher, depending on your project -->
 					<target>1.8</target> <!-- or higher, depending on your project -->
 					<annotationProcessorPaths>
+						<path>
+                        	<groupId>org.projectlombok</groupId>
+                        	<artifactId>lombok</artifactId>
+                        	<version>1.16.14</version>
+                    	</path>
 						<path>
 							<groupId>org.mapstruct</groupId>
 							<artifactId>mapstruct-processor</artifactId>
@@ -98,6 +103,19 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+			<!-- <plugin>
+		      	<groupId>org.projectlombok</groupId>
+      			<artifactId>lombok-maven-plugin</artifactId>
+      			<version>1.16.6.1</version>
+      			<executions>
+        			<execution>
+          				<phase>generate-sources</phase>
+          				<goals>
+				            <goal>delombok</goal>
+						</goals>
+			        </execution>
+			    </executions>
+    		</plugin> -->
 		</plugins>
 
 	</build>
